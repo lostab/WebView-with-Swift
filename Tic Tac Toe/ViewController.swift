@@ -22,6 +22,21 @@ class ViewController: UIViewController, UIWebViewDelegate {
         webView.loadRequest(request);
         webView.delegate = self;
     }
+    
+    public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool
+    {
+        // shouldStart
+        if (request.url?.absoluteString.contains("http") == true) {
+            if (UIApplication.shared.canOpenURL(request.url!)) {
+                UIApplication.shared.open(request.url!, options:[:], completionHandler:nil);
+                return false;
+            }
+            return true;
+        } else {
+            return true;
+        }
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
